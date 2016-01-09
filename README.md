@@ -48,7 +48,7 @@ Implement the Rescource interface for your Resource struct, like Book.
     return "books"
   }
 
-  // Then you can all visitors can only read books
+  // Then you can allow visitors can only read and create books
   visitorRole.Allow(Book{}, roles.Read, roles.Create)
 ```
 

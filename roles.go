@@ -42,7 +42,7 @@ func (r *Role) Allow(resourcer Resourcer, permissions ...gset.Elementer) *Role {
 	return r
 }
 
-func Can(roler Roler, resourcer Resourcer, permission gset.Elementer) bool {
+func Can(roler Roler, resourcer Resourcer, permission Permission) bool {
 	roleNames := roler.Roles()
 	for _, roleName := range roleNames {
 		if roles[roleName].allowPermissions[resourcer.TableName()].Has(permission) {
