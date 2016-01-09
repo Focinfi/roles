@@ -1,0 +1,1 @@
+Resources access manangment for different roles
