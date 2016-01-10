@@ -19,6 +19,16 @@ type Role struct {
 	allowPermissions map[string]*gset.Set
 }
 
+func (r *Role) Allow(resourcer Resourcer, permissions ...gset.Elementer) *Role {
+	permissionSet, ok := r.allowPermissions[resourcer.TableName()]
+	if ok {
+		permissionSet.Add(permissions...)
+	} else {
+		r.allowPermissions[resourcer.TableName()] = gset.NewSet(permissions...)
+	}
+	return r
+}
+
 func NewRole() *Role {
 	return &Role{make(map[string]*gset.Set)}
 }
@@ -30,16 +40,6 @@ func Add(name string) *Role {
 		roles[name] = role
 	}
 	return role
-}
-
-func (r *Role) Allow(resourcer Resourcer, permissions ...gset.Elementer) *Role {
-	permissionSet, ok := r.allowPermissions[resourcer.TableName()]
-	if ok {
-		permissionSet.Add(permissions...)
-	} else {
-		r.allowPermissions[resourcer.TableName()] = gset.NewSet(permissions...)
-	}
-	return r
 }
 
 func Can(roler Roler, resourcer Resourcer, permission Permission) bool {
