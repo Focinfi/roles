@@ -19,13 +19,19 @@ type Role struct {
 	allowPermissions map[string]*gset.Set
 }
 
-func (r *Role) Allow(resourcer Resourcer, permissions ...gset.Elementer) *Role {
+func (r *Role) Allow(resourcer Resourcer, permissions ...Permission) *Role {
+	permissionsE := make([]gset.Elementer, len(permissions))
+	for i, permission := range permissions {
+		permissionsE[i] = permission
+	}
+
 	permissionSet, ok := r.allowPermissions[resourcer.TableName()]
 	if ok {
-		permissionSet.Add(permissions...)
+		permissionSet.Add(permissionsE...)
 	} else {
-		r.allowPermissions[resourcer.TableName()] = gset.NewSet(permissions...)
+		r.allowPermissions[resourcer.TableName()] = gset.NewSet(permissionsE...)
 	}
+
 	return r
 }
 
