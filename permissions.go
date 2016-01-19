@@ -1,11 +1,5 @@
 package roles
 
-import (
-	"sync"
-)
-
-var mux sync.RWMutex
-
 type Permission int
 
 const (
@@ -16,6 +10,7 @@ const (
 	CRUD
 )
 
+// Element keeps to the Elementer interface
 func (p Permission) Element() interface{} {
 	return p
 }
