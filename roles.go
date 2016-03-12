@@ -26,7 +26,7 @@ type Role struct {
 
 // Allow add perssion set into a role
 func (r *Role) Allow(resourcer Resourcer, permissions ...Permission) *Role {
-	permissionsE := make([]gset.Elementer, len(permissions))
+	permissionsE := make([]gset.IdGetter, len(permissions))
 	for i, permission := range permissions {
 		permissionsE[i] = permission
 	}

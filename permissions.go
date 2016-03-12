@@ -11,6 +11,6 @@ const (
 )
 
 // Element keeps to the Elementer interface
-func (p Permission) Element() interface{} {
+func (p Permission) Id() interface{} {
 	return p
 }
